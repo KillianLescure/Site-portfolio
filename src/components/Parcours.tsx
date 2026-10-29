@@ -36,6 +36,14 @@ export default function Parcours() {
   const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
   const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
+  // Lusion-inspired scroll-traced line with spring inertia
+  const lineProgress = useTransform(scrollYProgress, [0.05, 0.92], [0, 1]);
+  const smoothLineProgress = useSpring(lineProgress, {
+    stiffness: 50,
+    damping: 22,
+    restDelta: 0.001
+  });
+
   // Different depths for mouse movement
   const mouseMoveFastX = useTransform(smoothMouseX, [-0.5, 0.5], [-40, 40]);
   const mouseMoveFastY = useTransform(smoothMouseY, [-0.5, 0.5], [-40, 40]);
@@ -59,6 +67,75 @@ export default function Parcours() {
         style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
         className="absolute top-0 left-0 w-full h-[500px] lg:h-[1000px] bg-gradient-to-b from-[#DCE6FF] via-dark to-dark pointer-events-none z-0"
       />
+
+      {/* Lusion-inspired Neon Blue Scroll Ribbon (Timeline spine) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <svg
+          viewBox="0 0 1000 3600"
+          fill="none"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+        >
+          <defs>
+            <linearGradient id="parcoursLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
+              <stop offset="20%" stopColor="#376EFE" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#8BA7FF" stopOpacity="1" />
+              <stop offset="80%" stopColor="#376EFE" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#6894FE" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+
+          {/* Lueur néon d'ambiance très diffuse */}
+          <motion.path
+            d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
+            stroke="#376EFE"
+            strokeWidth="20"
+            strokeOpacity="0.2"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength: smoothLineProgress }}
+            className="blur-xl"
+          />
+
+          {/* Lueur médiane vive */}
+          <motion.path
+            d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
+            stroke="#376EFE"
+            strokeWidth="7"
+            strokeOpacity="0.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength: smoothLineProgress }}
+            className="blur-xs"
+          />
+
+          {/* Ligne principale nette et colorée */}
+          <motion.path
+            d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
+            stroke="url(#parcoursLineGrad)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength: smoothLineProgress }}
+          />
+
+          {/* Filament blanc cœur laser */}
+          <motion.path
+            d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
+            stroke="#FFFFFF"
+            strokeWidth="1"
+            strokeOpacity="0.65"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength: smoothLineProgress }}
+          />
+        </svg>
+      </div>
 
       <div className="max-w-[1400px] w-full mx-auto px-6 relative z-10">
         

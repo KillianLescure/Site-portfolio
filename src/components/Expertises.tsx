@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "next/image";
 
 const expertises = [
@@ -29,9 +30,78 @@ const tools = [
 ];
 
 export default function Expertises() {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 80%", "end 30%"]
+  });
+
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 55,
+    damping: 22,
+    restDelta: 0.001
+  });
+
   return (
-    <section id="services" className="py-24 lg:py-32 bg-white text-dark">
-      <div className="max-w-[1296px] w-full mx-auto px-6">
+    <section ref={sectionRef} id="services" className="relative py-24 lg:py-32 bg-white text-dark overflow-hidden">
+      
+      {/* Lusion-inspired Scroll-traced Blue Line */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <svg
+          viewBox="0 0 1200 900"
+          fill="none"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+        >
+          <defs>
+            <linearGradient id="expertisesLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
+              <stop offset="30%" stopColor="#376EFE" stopOpacity="0.85" />
+              <stop offset="70%" stopColor="#8BA7FF" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+
+          {/* Halo d'ambiance */}
+          <motion.path
+            d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
+            stroke="#376EFE"
+            strokeWidth="14"
+            strokeOpacity="0.12"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+            className="blur-md"
+          />
+
+          {/* Ligne nette dégradée */}
+          <motion.path
+            d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
+            stroke="url(#expertisesLineGrad)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+          />
+
+          {/* Cœur lumineux */}
+          <motion.path
+            d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
+            stroke="#FFFFFF"
+            strokeWidth="1"
+            strokeOpacity="0.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+          />
+        </svg>
+      </div>
+
+      <div className="max-w-[1296px] w-full mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-20">

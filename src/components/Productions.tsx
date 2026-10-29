@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "next/image";
 
 const projects = [
@@ -27,12 +28,91 @@ const projects = [
 ];
 
 export default function Productions() {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 80%", "end 20%"]
+  });
+
+  // Inertie fluide inspirée de Lusion avec physics spring
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 55,
+    damping: 22,
+    restDelta: 0.001
+  });
+
   return (
-    <section id="portfolio" className="relative py-24 lg:py-32 text-dark overflow-hidden">
+    <section ref={sectionRef} id="portfolio" className="relative py-24 lg:py-32 text-dark overflow-hidden">
       
+      {/* Lusion-inspired Scroll-traced Blue Line */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <svg
+          viewBox="0 0 1200 1600"
+          fill="none"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+        >
+          <defs>
+            <linearGradient id="prodLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
+              <stop offset="20%" stopColor="#376EFE" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#8BA7FF" stopOpacity="1" />
+              <stop offset="80%" stopColor="#376EFE" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.3" />
+            </linearGradient>
+          </defs>
 
+          {/* Halo d'ambiance large */}
+          <motion.path
+            d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
+            stroke="#376EFE"
+            strokeWidth="16"
+            strokeOpacity="0.15"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+            className="blur-md"
+          />
 
-      <div className="max-w-[1296px] w-full mx-auto px-6 relative z-10">
+          {/* Lueur médiane */}
+          <motion.path
+            d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
+            stroke="#6894FE"
+            strokeWidth="6"
+            strokeOpacity="0.35"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+            className="blur-xs"
+          />
+
+          {/* Ligne principale nette et dégradée */}
+          <motion.path
+            d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
+            stroke="url(#prodLineGrad)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+          />
+
+          {/* Cœur lumineux fin pour l'effet fibre optique / laser */}
+          <motion.path
+            d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
+            stroke="#FFFFFF"
+            strokeWidth="1"
+            strokeOpacity="0.5"
+            strokeLinecap="round"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+          />
+        </svg>
+      </div>
         
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-20">
