@@ -69,7 +69,7 @@ export default function Parcours() {
       />
 
       {/* Lusion-inspired Neon Blue Scroll Ribbon (Timeline spine) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] overflow-hidden">
         <svg
           viewBox="0 0 1000 3600"
           fill="none"
@@ -78,11 +78,11 @@ export default function Parcours() {
         >
           <defs>
             <linearGradient id="parcoursLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
-              <stop offset="20%" stopColor="#376EFE" stopOpacity="0.9" />
-              <stop offset="50%" stopColor="#8BA7FF" stopOpacity="1" />
-              <stop offset="80%" stopColor="#376EFE" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#6894FE" stopOpacity="0.4" />
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.4" />
+              <stop offset="20%" stopColor="#376EFE" />
+              <stop offset="50%" stopColor="#8BA7FF" />
+              <stop offset="80%" stopColor="#376EFE" />
+              <stop offset="100%" stopColor="#6894FE" stopOpacity="0.5" />
             </linearGradient>
           </defs>
 
@@ -90,8 +90,8 @@ export default function Parcours() {
           <motion.path
             d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
             stroke="#376EFE"
-            strokeWidth="20"
-            strokeOpacity="0.2"
+            strokeWidth="24"
+            strokeOpacity="0.25"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -103,20 +103,20 @@ export default function Parcours() {
           <motion.path
             d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
             stroke="#376EFE"
-            strokeWidth="7"
-            strokeOpacity="0.5"
+            strokeWidth="9"
+            strokeOpacity="0.6"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
             style={{ pathLength: smoothLineProgress }}
-            className="blur-xs"
+            className="blur-sm"
           />
 
           {/* Ligne principale nette et colorée */}
           <motion.path
             d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
             stroke="url(#parcoursLineGrad)"
-            strokeWidth="2.5"
+            strokeWidth="3.5"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -127,8 +127,8 @@ export default function Parcours() {
           <motion.path
             d="M 180,80 C 450,220 880,420 850,820 C 820,1180 120,1320 150,1720 C 180,2120 880,2260 840,2660 C 800,3000 240,3200 480,3580"
             stroke="#FFFFFF"
-            strokeWidth="1"
-            strokeOpacity="0.65"
+            strokeWidth="1.5"
+            strokeOpacity="0.8"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"

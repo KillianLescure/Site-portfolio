@@ -34,12 +34,14 @@ export default function Expertises() {
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 80%", "end 30%"]
+    offset: ["start end", "end start"]
   });
 
-  const pathLength = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
+  const lineProgress = useTransform(scrollYProgress, [0.1, 0.85], [0, 1]);
+
+  const pathLength = useSpring(lineProgress, {
+    stiffness: 60,
+    damping: 20,
     restDelta: 0.001
   });
 
@@ -47,7 +49,7 @@ export default function Expertises() {
     <section ref={sectionRef} id="services" className="relative py-24 lg:py-32 bg-white text-dark overflow-hidden">
       
       {/* Lusion-inspired Scroll-traced Blue Line */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] overflow-hidden">
         <svg
           viewBox="0 0 1200 900"
           fill="none"
@@ -56,10 +58,10 @@ export default function Expertises() {
         >
           <defs>
             <linearGradient id="expertisesLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
-              <stop offset="30%" stopColor="#376EFE" stopOpacity="0.85" />
-              <stop offset="70%" stopColor="#8BA7FF" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.2" />
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.3" />
+              <stop offset="30%" stopColor="#376EFE" />
+              <stop offset="70%" stopColor="#8BA7FF" />
+              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.3" />
             </linearGradient>
           </defs>
 
@@ -67,8 +69,8 @@ export default function Expertises() {
           <motion.path
             d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
             stroke="#376EFE"
-            strokeWidth="14"
-            strokeOpacity="0.12"
+            strokeWidth="16"
+            strokeOpacity="0.2"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -80,7 +82,7 @@ export default function Expertises() {
           <motion.path
             d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
             stroke="url(#expertisesLineGrad)"
-            strokeWidth="2.5"
+            strokeWidth="3.5"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -91,8 +93,8 @@ export default function Expertises() {
           <motion.path
             d="M 50,150 C 350,100 550,550 850,380 C 1050,260 1150,480 1180,820"
             stroke="#FFFFFF"
-            strokeWidth="1"
-            strokeOpacity="0.5"
+            strokeWidth="1.5"
+            strokeOpacity="0.75"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"

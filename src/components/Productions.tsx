@@ -32,13 +32,15 @@ export default function Productions() {
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 80%", "end 20%"]
+    offset: ["start end", "end start"]
   });
 
+  const lineProgress = useTransform(scrollYProgress, [0.1, 0.85], [0, 1]);
+
   // Inertie fluide inspirée de Lusion avec physics spring
-  const pathLength = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
+  const pathLength = useSpring(lineProgress, {
+    stiffness: 60,
+    damping: 20,
     restDelta: 0.001
   });
 
@@ -46,7 +48,7 @@ export default function Productions() {
     <section ref={sectionRef} id="portfolio" className="relative py-24 lg:py-32 text-dark overflow-hidden">
       
       {/* Lusion-inspired Scroll-traced Blue Line */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] overflow-hidden">
         <svg
           viewBox="0 0 1200 1600"
           fill="none"
@@ -55,11 +57,11 @@ export default function Productions() {
         >
           <defs>
             <linearGradient id="prodLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.2" />
-              <stop offset="20%" stopColor="#376EFE" stopOpacity="0.9" />
-              <stop offset="50%" stopColor="#8BA7FF" stopOpacity="1" />
-              <stop offset="80%" stopColor="#376EFE" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.3" />
+              <stop offset="0%" stopColor="#376EFE" stopOpacity="0.4" />
+              <stop offset="25%" stopColor="#376EFE" />
+              <stop offset="50%" stopColor="#6E9BFE" />
+              <stop offset="75%" stopColor="#376EFE" />
+              <stop offset="100%" stopColor="#376EFE" stopOpacity="0.4" />
             </linearGradient>
           </defs>
 
@@ -67,8 +69,8 @@ export default function Productions() {
           <motion.path
             d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
             stroke="#376EFE"
-            strokeWidth="16"
-            strokeOpacity="0.15"
+            strokeWidth="18"
+            strokeOpacity="0.25"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -80,20 +82,20 @@ export default function Productions() {
           <motion.path
             d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
             stroke="#6894FE"
-            strokeWidth="6"
-            strokeOpacity="0.35"
+            strokeWidth="8"
+            strokeOpacity="0.5"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
             style={{ pathLength }}
-            className="blur-xs"
+            className="blur-[2px]"
           />
 
           {/* Ligne principale nette et dégradée */}
           <motion.path
             d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
             stroke="url(#prodLineGrad)"
-            strokeWidth="2.5"
+            strokeWidth="3.5"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -104,8 +106,8 @@ export default function Productions() {
           <motion.path
             d="M 120,60 C 500,40 1080,180 1060,460 C 1040,740 100,680 100,1020 C 100,1340 720,1480 1120,1560"
             stroke="#FFFFFF"
-            strokeWidth="1"
-            strokeOpacity="0.5"
+            strokeWidth="1.5"
+            strokeOpacity="0.8"
             strokeLinecap="round"
             fill="none"
             vectorEffect="non-scaling-stroke"
@@ -113,6 +115,8 @@ export default function Productions() {
           />
         </svg>
       </div>
+
+      <div className="max-w-[1296px] w-full mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-20">
